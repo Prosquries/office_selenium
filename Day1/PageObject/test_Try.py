@@ -1,11 +1,12 @@
-import pytest
+import time
+
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from Try1 import TravelFormPage
 
 class TestTry:
 
-    def test_DummyWebserver(self):
+    def test_DummyWebserver(self,Setup):
         self.serv_obj = Service()
         self.driver = webdriver.Chrome(service = self.serv_obj)
 
@@ -18,11 +19,13 @@ class TestTry:
         lp.set_date("Mar","2005","18")
         lp.set_Gender()
         lp.set_destinations("Jaipur","Delhi")
+        lp.set_deptDate("Feb","2027","10")
+        lp.set_Billing("Sysquare","9887045600","sys@gmail.com","India","24 th street jaipur","Jaipur","Rajasthan","302020")
         self.act_title = self.driver.title
 
         try:
-            assert self.act_title == "Dummy ticket for applying visa - Verifiable flight reservation for embassy"
-            self.driver.close()
+             assert self.act_title == "Dummy ticket for applying visa - Verifiable flight reservation for embassy"
+             self.driver.close()
 
         except:
             print("Page not found")
