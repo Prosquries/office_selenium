@@ -12,3 +12,8 @@ class Test_login:
     def test_phone(self):
         print("This is login by phone number")
         assert True
+
+    def test_google(self):
+        print("Login with google")
+        assert True
+

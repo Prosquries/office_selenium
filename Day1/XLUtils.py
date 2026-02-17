@@ -20,3 +20,5 @@ from selenium.common.exceptions import (
     StaleElementReferenceException,
     TimeoutException
 )
+import pytest
+from selenium.webdriver.edge.service import Service as EdgeService
