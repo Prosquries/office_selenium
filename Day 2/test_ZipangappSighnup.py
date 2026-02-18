@@ -1,9 +1,10 @@
 import time
-
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from SighnupZipangApp_PageObject import ZipangappSighnup
+from SighnupZipangApp_PageObject import ZipangLogin
 
 class Test_Sighnup:
 
@@ -34,5 +35,8 @@ class Test_Sighnup:
         lp.set_Language("ENGLISH")
         time.sleep(1)
         lp.set_Agree()
+        # lp.set_Submit_button()
+        input ("Press Enter to Continue...")
+        self.driver.close()
 
-        self.driver.quit()
+        self.driver.close()

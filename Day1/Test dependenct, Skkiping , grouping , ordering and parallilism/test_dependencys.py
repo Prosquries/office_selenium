@@ -10,11 +10,11 @@ class TestDependencies:
     def test_Login(self):
         assert True == True
 
-    @pytest.mark.dependency(name = "Search", depends = ["Login"])
+    @pytest.mark.dependency(name = "Reports", depends = ["Login"])
     def test_Search(self):
         assert True == False
 
-    @pytest.mark.dependency(name = "AdvanceSearch",depends = ["Search"])
+    @pytest.mark.dependency(name = "AdvanceSearch",depends = ["Reports"])
     def test_AdvancedSearch(self):
         assert True == True
 
