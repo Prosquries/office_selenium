@@ -299,6 +299,8 @@ class ZipangNR:
     Grid_view_button_xpath = "//img[@title='List view of Product']"
     NR_Button_xpath = "//img[@alt='reserve']"
     NR_present_xpath = "//td[3][contains(.,'NR')]"
+    Page_prev_button_xpath = "//button[@title='Go to previous page']//*[name()='svg']"
+
 #----------- constructor --------------
     def __init__(self, driver):
         self.driver = driver
@@ -358,6 +360,9 @@ class ZipangNR:
         self.driver.find_element(By.XPATH, self.NR_Button_xpath).click()
         nr_elements = self.driver.find_elements(By.XPATH, self.NR_present_xpath)
         return len(nr_elements)
+
+    def set_Prev_button(self):
+        self.driver.find_element(By.XPATH,self.Preview_button_xpath).click()
 
 class ZipangDownload:
 
@@ -533,6 +538,7 @@ class ZipangPlaceBid:
     Press_yes_button_xpath = "//button[normalize-space()='Yes']"
     PlaceBod1_text_xpath = "(//input[@id='preBiddingPrice'])[4]"
     PlaceBod2_text_xpath = "(//input[@id='preBiddingPrice'])[5]"
+    NextPage_button_xpath = "//button[@title='Go to next page']//*[name()='svg']"
 
 # ------------ Constructor --------------------
 
@@ -636,6 +642,9 @@ class ZipangPlaceBid:
             assert yes_btn.is_displayed()
 
             yes_btn.click()
+
+    def Next_page_button(self):
+        self.driver.find_element(By.XPATH,self.NextPage_button_xpath).click()
 
 class ZipangBulkBid:
 
