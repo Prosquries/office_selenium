@@ -510,3 +510,213 @@ class ZipangFav:
         after_color = heart.value_of_css_property("color")
 
         assert before_color != after_color
+
+class ZipangPlaceBid:
+
+#------------ Locators --------------------
+
+    HomePageNev_Icon_xpath = "//img[@alt='zipang image #1']"
+    Login_button_xpath = "//span[@id='sign-in']"
+    Email_text_xpath = "//input[@id='email']"
+    Password_text_xpath = "//input[@id='password']"
+    Submit_button_xpath = "//div[@class='MuiGrid-root sc-hGjceG bYqeUY MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-content-xs-space-between']//span[@class='MuiButton-label'][normalize-space()='Login']"
+    New_password_text_xpath = "//input[@id='newPassword']"
+    Confirm_password_text_xpath = "//input[@id='confirmPassword']"
+    Set_password_button_xpath = "//button[normalize-space()='SET PASSWORD']"
+    Accept_button1_xpath = "//button[normalize-space()='ACCEPT']"
+    Accept_button2_xpath = "/html/body/div[3]/div[3]/div/button"
+    Accept_button3_xpath = "/html/body/div[3]/div[3]/div/button"
+    Accept_button4_xpath = "/html/body/div[3]/div[3]/div/button"
+    Preview_button_xpath = "//span[contains(text(),'PREVIEW')]"
+    Grid_view_button_xpath = "//img[@title='List view of Product']"
+    PlaceBod_text_xpath = "(//input[@id='preBiddingPrice'])[3]"
+    Press_yes_button_xpath = "//button[normalize-space()='Yes']"
+    PlaceBod1_text_xpath = "(//input[@id='preBiddingPrice'])[4]"
+    PlaceBod2_text_xpath = "(//input[@id='preBiddingPrice'])[5]"
+
+# ------------ Constructor --------------------
+
+    def __init__(self, driver):
+        self.driver = driver
+        self.wait = WebDriverWait(driver, 15)
+
+# ------------ Actions --------------------
+
+    def set_HomePage(self):
+        self.driver.find_element(By.XPATH, self.HomePageNev_Icon_xpath).click()
+
+    def set_Login(self):
+        self.driver.find_element(By.XPATH, self.Login_button_xpath).click()
+
+    def set_Email(self, Email):
+        Email_text = self.driver.find_element(By.XPATH, self.Email_text_xpath)
+        Email_text.send_keys(Email)
+
+    def set_password(self, Password):
+        Password_text = self.driver.find_element(By.XPATH, self.Password_text_xpath)
+        Password_text.send_keys(Password)
+
+    def set_LoginButton(self):
+        self.driver.find_element(By.XPATH, self.Submit_button_xpath).click()
+
+    def set_Set_PasswordButton(self):
+        self.driver.find_element(By.XPATH, self.Set_password_button_xpath).click()
+
+    def set_Accept_buttons(self):
+        self.driver.find_element(By.XPATH, self.Accept_button1_xpath).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Accept_button2_xpath).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Accept_button3_xpath).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Accept_button4_xpath).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Accept_button4_xpath).click()
+
+    def set_previewButton(self):
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, self.Preview_button_xpath))).click()
+
+    def set_Grid_view_button(self):
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Grid_view_button_xpath).click()
+
+    def set_placeBid_xpath_empty(self):
+        prebid_text=self.driver.find_element(By.XPATH, self.PlaceBod_text_xpath)
+        prebid_text.send_keys("")
+        ActionChains(self.driver).send_keys(Keys.ENTER).perform()
+
+        yes_btn = WebDriverWait(self.driver, 3).until(
+            EC.visibility_of_element_located((By.XPATH, self.Press_yes_button_xpath))
+        )
+
+        assert yes_btn.is_displayed()
+
+        yes_btn.click()
+
+    def set_placeBid_xpath_ValidAmount(self):
+        prebid_text = self.driver.find_element(By.XPATH, self.PlaceBod_text_xpath)
+        prebid_text.clear()
+        prebid_text.send_keys("450000")
+        prebid_text.send_keys(Keys.ENTER)
+
+        yes_btn = WebDriverWait(self.driver, 3).until(
+            EC.visibility_of_element_located((By.XPATH, self.Press_yes_button_xpath))
+        )
+
+        assert yes_btn.is_displayed()
+
+        yes_btn.click()
+
+    def set_placeBid_xpath_Negativeamount(self):
+
+            prebid_text = self.driver.find_element(By.XPATH, self.PlaceBod1_text_xpath)
+            prebid_text.clear()
+            prebid_text.send_keys("-450000")
+            prebid_text.send_keys(Keys.ENTER)
+
+            yes_btn = WebDriverWait(self.driver, 3).until(
+                EC.visibility_of_element_located((By.XPATH, self.Press_yes_button_xpath))
+            )
+
+            assert yes_btn.is_displayed()
+
+            yes_btn.click()
+
+    def set_placeBid_xpath_StringAsAmount(self):
+
+            prebid_text = self.driver.find_element(By.XPATH, self.PlaceBod2_text_xpath)
+            prebid_text.clear()
+            prebid_text.send_keys("abc")
+            prebid_text.send_keys(Keys.ENTER)
+
+            yes_btn = WebDriverWait(self.driver, 3).until(
+                EC.visibility_of_element_located((By.XPATH, self.Press_yes_button_xpath))
+            )
+
+            assert yes_btn.is_displayed()
+
+            yes_btn.click()
+
+class ZipangBulkBid:
+
+# ------------ Locators --------------------
+    HomePageNev_Icon_xpath = "//img[@alt='zipang image #1']"
+    Login_button_xpath = "//span[@id='sign-in']"
+    Email_text_xpath = "//input[@id='email']"
+    Password_text_xpath = "//input[@id='password']"
+    Submit_button_xpath = "//div[@class='MuiGrid-root sc-hGjceG bYqeUY MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-content-xs-space-between']//span[@class='MuiButton-label'][normalize-space()='Login']"
+    New_password_text_xpath = "//input[@id='newPassword']"
+    Confirm_password_text_xpath = "//input[@id='confirmPassword']"
+    Set_password_button_xpath = "//button[normalize-space()='SET PASSWORD']"
+    Accept_button1_xpath = "//button[normalize-space()='ACCEPT']"
+    Accept_button2_xpath = "/html/body/div[3]/div[3]/div/button"
+    Accept_button3_xpath = "/html/body/div[3]/div[3]/div/button"
+    Accept_button4_xpath = "/html/body/div[3]/div[3]/div/button"
+    Preview_button_xpath = "//span[contains(text(),'PREVIEW')]"
+    Grid_view_button_xpath = "//img[@title='List view of Product']"
+    BulkBid_Button_xpath = "//img[@title='Select items to bulk prebid or watchlist']"
+    Select_CheckBox_xpath = "//span[@data-description='row-select-header']//input[@type='checkbox']"
+    prebid_button_xpath = "//button[normalize-space()='Place Bid']"
+
+# ------------ Constructor --------------------
+    def __init__(self, driver):
+        self.driver = driver
+        self.wait = WebDriverWait(driver, 5)
+
+# ------------ Actions --------------------
+
+    def set_HomePage(self):
+        self.driver.find_element(By.XPATH, self.HomePageNev_Icon_xpath).click()
+
+    def set_Login(self):
+        self.driver.find_element(By.XPATH, self.Login_button_xpath).click()
+
+    def set_Email(self, Email):
+        Email_text = self.driver.find_element(By.XPATH, self.Email_text_xpath)
+        Email_text.send_keys(Email)
+
+    def set_password(self, Password):
+        Password_text = self.driver.find_element(By.XPATH, self.Password_text_xpath)
+        Password_text.send_keys(Password)
+
+    def set_LoginButton(self):
+        self.driver.find_element(By.XPATH, self.Submit_button_xpath).click()
+
+    def set_Set_PasswordButton(self):
+        self.driver.find_element(By.XPATH, self.Set_password_button_xpath).click()
+
+    def set_Accept_buttons(self):
+        self.driver.find_element(By.XPATH, self.Accept_button1_xpath).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Accept_button2_xpath).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Accept_button3_xpath).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Accept_button4_xpath).click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Accept_button4_xpath).click()
+
+    def set_previewButton(self):
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, self.Preview_button_xpath))).click()
+
+    def set_Grid_view_button(self):
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, self.Grid_view_button_xpath).click()
+
+
+    def set_BulkBidButton_xpath_WithoutSelection(self):
+        self.driver.find_element(By.XPATH, self.BulkBid_Button_xpath).click()
+
+        pre_bid = self.wait.until(EC.visibility_of_element_located((By.XPATH, self.prebid_button_xpath)))
+
+        assert pre_bid.is_displayed()
+
+        pre_bid.click()
+
+    def set_BulkBidButton_xpath_WithSelection(self):
+        self.driver.find_element(By.XPATH,self.Select_CheckBox_xpath).click()
+        self.driver.find_element(By.XPATH, self.BulkBid_Button_xpath).click()
+
+        pre_bid = self.wait.until(EC.visibility_of_element_located((By.XPATH, self.prebid_button_xpath)))
+        assert pre_bid.is_displayed()
+        pre_bid.click()
